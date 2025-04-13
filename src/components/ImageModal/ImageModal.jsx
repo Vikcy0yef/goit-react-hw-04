@@ -14,7 +14,7 @@ const ImageModal = ({ isOpen, onRequestClose, image }) => {
       >
           {image && (
               <img
-                  src={image.scr}
+                  src={image.src}
                   alt={image.alt}
               style={{width: "100%", height: "auto"}}/>
       )}
