@@ -24,16 +24,9 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
  
 
-  useEffect(() => {
-    const storedImages = localStorage.getItem("images");
-    if (storedImages) {
-      setImages(JSON.parse(storedImages))
-    }
-  }, []);
-  
-  useEffect(() => {
-    localStorage.setItem("images", JSON.stringify(images))
-  }, [images]);
+useEffect(() => {
+  localStorage.removeItem("images");
+}, []);
 
   const fetchImages = async (searchQuery, pageNumber) => {
     setLoading(true);
