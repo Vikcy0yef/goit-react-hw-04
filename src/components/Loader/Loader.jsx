@@ -1,12 +1,8 @@
-import React from 'react'
-import { ClipLoader } from "react-spinners";
+import { RingLoader } from "react-spinners";
 
 const Loader = () => {
-  return (
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <ClipLoader size={40} color="#36d7b7" />
-    </div>
-  )
-}
+  return <RingLoader color="#04f92b" />;
+};
 
-export default Loader
+export default Loader;
+

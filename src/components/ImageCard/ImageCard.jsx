@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ImageCard = ({image}) => {
+const ImageCard = ({image, onClick}) => {
   return (
-    <div>
-      <img src={image.scr} alt={image.alt} />
+   <div onClick={onClick} style={{ cursor: 'pointer' }}>
+      <img src={image.src} alt={image.alt} />
     </div>
   )
 }

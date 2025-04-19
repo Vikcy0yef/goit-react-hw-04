@@ -1,5 +1,6 @@
 import React from 'react'
 import s from "./ImageGallery.module.css"
+import ImageCard from '../ImageCard/ImageCard';
 
 const ImageGallery = ({images, onImageClick}) => {
   if (!Array.isArray(images)) {
@@ -9,10 +10,8 @@ const ImageGallery = ({images, onImageClick}) => {
   return (
     <ul className={s.list}>
       {images.map((img) => (
-        <li key={img.id} onClick={() => onImageClick(img)}>
-          <div>
-            <img src={img.src} alt={img.alt} />
-          </div>
+        <li key={img.id}>
+        <ImageCard image={img}  onClick={() => onImageClick(img)} />
         </li>
       ))}
     </ul>

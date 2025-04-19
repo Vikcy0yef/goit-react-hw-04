@@ -8,16 +8,21 @@ import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import ImageModal from "./components/ImageModal/ImageModal"; 
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 
-const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_KEY ||"UuoizzBsMV3azLMsSNexiUr9lfCZn0ZCgDzzKqvdCPo"
+
+// import { toast } from 'react-hot-toast';
+
+
+const ACCESS_KEY = "faqkgSo34geXeTxFk9k4_SjWLmxa0MQsQ7_BAiG9Ta4"
+
 function App() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-const [selectedImage, setSelectedImage] = useState(null);
-const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+ 
 
   useEffect(() => {
     const storedImages = localStorage.getItem("images");
@@ -29,13 +34,13 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     localStorage.setItem("images", JSON.stringify(images))
   }, [images]);
-  
+
   const fetchImages = async (searchQuery, pageNumber) => {
     setLoading(true);
     setError(null)
     try {
       const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${searchQuery}&per_page=12&client_id=${ACCESS_KEY}`
+        `https://api.unsplash.com/search/photos?query=${searchQuery}&page=${pageNumber}&per_page=12&client_id=${ACCESS_KEY}`
       );
       if (!response.ok) {
        throw new Error("Failed to fetch images. Try again later.");
@@ -83,13 +88,24 @@ const closeModal = () => {
         <ErrorMessage message={error} />
       ) : (
         <>
-          <ImageGallery images={images} onImageClick={openModal}/>
-          {images.length > 0 && !loading && (
-            <LoadMoreBtn onClick={handleLoadMore} />
-          )}
+            <ImageGallery
+              images={images} onImageClick={openModal} />
+          {(images.length > 0 || loading) && (
+  <div className="centered-wrapper">
+    {loading ? (
+      <Loader />
+    ) : (
+      <LoadMoreBtn onClick={handleLoadMore} />
+    )}
+  </div>
+)}
         </>
       )}
-      {loading && <Loader />}
+     {loading && (
+  <div className="centered-wrapper">
+    <Loader />
+  </div>
+)}
       <Toaster position="top-right" />
       <ImageModal
   isOpen={isModalOpen}
@@ -97,7 +113,7 @@ const closeModal = () => {
   image={selectedImage}
 />
     </>
-  )
+  );
 }
 
 export default App
